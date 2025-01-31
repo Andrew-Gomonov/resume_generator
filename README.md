@@ -28,12 +28,12 @@ pip install -r resume/requirements.txt
 
 ### 🔹 Запуск графического интерфейса (GUI)
 ```bash
-python -m resume.resume_generator.main --gui
+python -m resume_generator.main --gui
 ```
 
 ### 🔹 Генерация резюме через CLI
 ```bash
-python -m resume.resume_generator.main --run-cli --data resume/resume_data.yaml --output-html output/resume.html --output-pdf output/resume.pdf
+python -m resume_generator.main --run-cli --data resume/resume_data.yaml --output-html output/resume.html --output-pdf output/resume.pdf
 ```
 
 ## 🔧 Настройки
