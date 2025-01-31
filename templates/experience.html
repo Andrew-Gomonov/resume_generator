@@ -1,0 +1,55 @@
+<!-- templates/experience.html -->
+<div class="section experience mb-4" data-aos="fade-left">
+    <h2 class="section-title">Опыт работы</h2>
+
+    {% if experience|length > 1 %}
+    <!-- Если у нас 2 и более записей — используем обычную timeline -->
+    <div class="timeline">
+        {% for job in experience %}
+        <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+            <div class="timeline-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="timeline-content">
+                <h3 class="timeline-title">{{ job.title }} — {{ job.company }}</h3>
+                <div class="timeline-meta">
+                    <span class="date">{{ job.start_date }} - {{ job.end_date }}</span>
+                    {% if job.location %}<span class="location"> • {{ job.location }}</span>{% endif %}
+                </div>
+                {% if job.details %}
+                <ul class="details-list">
+                    {% for detail in job.details %}
+                    <li>{{ detail }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif experience|length == 1 %}
+    <!-- Если всего 1 запись — показываем упрощённый блок без линии -->
+    {% set job = experience[0] %}
+    <div class="single-timeline-item text-center p-4" data-aos="fade-up">
+        <div class="single-icon mb-3">
+            <i class="fas fa-briefcase fa-2x"></i>
+        </div>
+        <h3 class="timeline-title">{{ job.title }} — {{ job.company }}</h3>
+        <div class="timeline-meta">
+            <span class="date">{{ job.start_date }} - {{ job.end_date }}</span>
+            {% if job.location %}<span class="location"> • {{ job.location }}</span>{% endif %}
+        </div>
+        {% if job.details %}
+        <ul class="details-list mt-3">
+            {% for detail in job.details %}
+            <li>{{ detail }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% else %}
+    <!-- Если вообще нет записей -->
+    <p>Опыт работы не указан.</p>
+    {% endif %}
+</div>
+

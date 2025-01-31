@@ -1,0 +1,35 @@
+<!-- templates/skills.html -->
+<div class="section skills mb-4" data-aos="zoom-in-up">
+    <h2 class="section-title">Навыки</h2>
+    {% if skills %}
+    <div id="skills">
+        {% for skill in skills %}
+        <div class="mb-2">
+            <span>{{ skill.name }}</span>
+
+            {% if not pdf_mode %}
+            <!-- Для обычного HTML-режима (браузер) показываем прогресс-бары -->
+            <div class="progress" style="margin-top: 5px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar"
+                     style="width: {{ skill.level }}%;"
+                     aria-valuenow="{{ skill.level }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                     {{ skill.level }}%
+                </div>
+            </div>
+            {% else %}
+            <!-- Для PDF-версии (pdf_mode=True) убираем визуальные полосы, 
+                 можно вывести просто цифры -->
+            <p style="margin: 0.5em 0;">
+                ({{ skill.level }}%)
+            </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Нет данных о навыках.</p>
+    {% endif %}
+</div>

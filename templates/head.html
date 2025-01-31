@@ -1,0 +1,294 @@
+<!-- templates/head.html -->
+<meta charset="UTF-8">
+<title>Резюме - {{ name }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% if pdf_mode %}
+<!-- Упрощённые и чуть более «красивые» стили для PDF -->
+<style>
+    /*
+     * Основные правила:
+     * 1) Можно использовать @page, чтобы задать поля страницы.
+     * 2) Избегаем слишком современных свойств (pointer-events, transform, calc() и т.д.),
+     *    чтобы WeasyPrint не сыпал сотнями предупреждений.
+     */
+  
+    @page {
+      size: A4;                /* Формат листа (A4). */
+      margin: 2cm;            /* Поля страницы. */
+    }
+  
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "DejaVu Sans", Arial, sans-serif; /* Шрифт с поддержкой кириллицы */
+      font-size: 14px;         /* Можно менять под вкус */
+      line-height: 1.4;
+      color: #333;
+      background-color: #fff;  /* Белый фон, без градиентов */
+    }
+  
+    /* Контейнер */
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      /* В PDF можно не делать сильно больших отступов —
+         ведь @page margin уже задаёт «поля» на листе */
+    }
+  
+    /* Заголовки */
+    h1, h2, h3 {
+      margin: 0.6em 0 0.4em 0;
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    h2 {
+      font-size: 1.4em;
+      border-bottom: 2px solid #666;
+      padding-bottom: 0.2em;
+    }
+    h3 {
+      font-size: 1.2em;
+    }
+  
+    /* Общие отступы между секциями */
+    .section {
+      margin-bottom: 1.5em;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid #ccc; /* Лёгкий разделитель между блоками */
+    }
+  
+    /* Если используете .section-title */
+    .section-title {
+      font-size: 1.4em;
+      margin-bottom: 0.4em;
+      border-bottom: 2px solid #666;
+      padding-bottom: 0.2em;
+    }
+  
+    /* Абзацы и списки */
+    p {
+      margin: 0.3em 0;
+    }
+    ul, ol {
+      margin: 0.5em 0 0.5em 1.4em;
+    }
+  
+    /* Ссылки */
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  
+    /* Простая стилизация "карточек" (для проектов/опыта) */
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 1em;
+      padding: 0.8em;
+    }
+    .card-title {
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+    .card-text {
+      margin-bottom: 0.5em;
+    }
+  
+    /* Фото профиля */
+    .profile-img {
+        width: 200px; 
+        height: 200px; 
+        object-fit: cover; /* Заполнение изображения, сохраняя пропорции */
+        border-radius: 50%; /* Круглая форма */
+        margin: 0 auto 1em auto;
+        border: 4px solid #007bff; /* Рамка */
+    }
+  
+    /* Таймлайны — упрощённый вид */
+    .timeline {
+      border-left: 2px solid #ccc;
+      margin: 1em 0;
+      padding-left: 1em;
+    }
+    .timeline-item {
+      margin-bottom: 1em;
+    }
+    .timeline-title {
+      font-weight: bold;
+      margin-bottom: 0.3em;
+    }
+    .timeline-meta {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 0.5em;
+    }
+    .location {
+      color: #999;
+    }
+    .timeline-content {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 0.5em;
+      border-radius: 4px;
+    }
+  
+    /* Навыки (если показываем без полос прогресса) — можно просто стилизовать списком */
+    /* Если вы оставили условие {% if not pdf_mode %} ... {% endif %} для прогресс-бара, 
+       то здесь просто сделаем легкое оформление текстовой части. */
+    .skill-item {
+      margin-bottom: 0.3em;
+    }
+  
+    /* Сертификаты, языки, итд. */
+    ul.list-group {
+      padding-left: 1.2em;
+    }
+    ul.list-group li {
+      margin: 0.3em 0;
+    }
+  
+</style>
+
+{% else %}
+<!-- Обычные стили для HTML-версии (браузер) -->
+<!-- Bootstrap, Font Awesome, AOS и т.д. -->
+<link id="themeStylesheet" rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+    /* Ваши прежние стили (для экрана) */
+    body {
+        background: linear-gradient(135deg, #e1e8f0 0%, #f0f5fa 100%);
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        margin: 0;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 3rem;
+    }
+    .header p {
+        font-size: 1.2rem;
+    }
+    .section-title {
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        position: relative;
+        color: #333;
+    }
+    .section-title::after {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 3px;
+        background-color: #007bff;
+        bottom: -5px;
+        left: 0;
+    }
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 4px solid #007bff;
+    }
+
+    .timeline {
+        position: relative;
+        margin: 20px 0;
+        padding: 0 0 20px 0;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 20px;
+        width: 2px;
+        background: #dee2e6;
+    }
+    .timeline-item {
+        position: relative;
+        margin-left: 40px;
+        margin-bottom: 30px;
+    }
+    .timeline-icon {
+        position: absolute;
+        left: -17px;
+        top: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #007bff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+    }
+    .timeline-content {
+        background: #fff;
+        padding: 15px 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .timeline-title {
+        font-size: 1.25rem;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .timeline-meta {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 10px;
+    }
+    .location {
+        color: #999;
+    }
+    .details-list {
+        list-style-type: none;
+        margin: 0;
+        padding-left: 20px;
+    }
+    .progress-bar {
+        transition: width 1.5s ease-in-out;
+    }
+    .profile-large-img {
+        width: 300px; /* Желаемая ширина */
+        height: 300px; /* Желаемая высота */
+        object-fit: cover; /* Заполнение изображения, сохраняя пропорции */
+        border-radius: 50%; /* Круглая форма */
+        border: 4px solid #007bff; /* Рамка */
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 2.5rem;
+        }
+        .header p {
+            font-size: 1rem;
+        }
+    }
+
+</style>
+{% endif %}

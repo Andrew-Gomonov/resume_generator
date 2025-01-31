@@ -1,0 +1,13 @@
+<!-- templates/languages.html -->
+<div class="section languages mb-4" data-aos="fade-right">
+    <h2 class="section-title">Языки</h2>
+    {% if languages %}
+    <ul class="list-group list-group-flush" id="languages">
+        {% for language in languages %}
+        <li class="list-group-item"><i class="fas fa-language"></i> {{ language }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Нет данных о языках.</p>
+    {% endif %}
+</div>

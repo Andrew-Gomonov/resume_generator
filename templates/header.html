@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+    {% if profile_image %}
+    <div class="col-md-4 text-center">
+        <img src="{{ profile_image }}" class="profile-img profile-large-img" alt="Фото">
+    </div>
+    {% endif %}
+
+    <div class="{% if profile_image %}col-md-8{% else %}col-md-6{% endif %} text-center">
+        <div class="header mb-4">
+            <h1 id="name">{{ name }}</h1>
+            <p id="position">{{ position }}</p>
+            <div class="contact-info mt-3">
+                <p><i class="fas fa-envelope"></i> Email:
+                    <a href="mailto:{{ email }}" id="email">{{ email }}</a>
+                </p>
+                <p><i class="fas fa-phone"></i> Телефон:
+                    <a href="tel:{{ phone }}" id="phone">{{ phone }}</a>
+                </p>
+                <p><i class="fab fa-linkedin"></i> LinkedIn:
+                    <a href="{{ linkedin }}" target="_blank" id="linkedin">{{ linkedin }}</a>
+                </p>
+                <p><i class="fab fa-github"></i> GitHub:
+                    <a href="{{ github }}" target="_blank" id="github">{{ github }}</a>
+                </p>
+                <p><i class="fas fa-birthday-cake"></i> Дата рождения:
+                    <span id="date-of-birth">{{ date_of_birth }}</span>
+                    (<span id="age">{% if pdf_mode %}{{age}}{% endif %}</span> лет)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

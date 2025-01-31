@@ -1,0 +1,22 @@
+<!-- templates/projects.html -->
+<div class="section projects mb-4" data-aos="fade-up"> <!-- добавили data-aos -->
+    <h2 class="section-title">Проекты</h2>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
+            <div class="card h-100">
+                {% if project.image %}
+                <img src="{{ project.image }}" class="card-img-top" alt="{{ project.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ project.link }}" target="_blank" class="btn btn-primary"><i class="fas fa-link"></i> Посмотреть</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

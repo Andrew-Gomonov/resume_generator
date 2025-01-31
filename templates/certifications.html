@@ -1,0 +1,18 @@
+<!-- templates/certifications.html -->
+<div class="section certifications mb-4" data-aos="fade-right">
+    <h2 class="section-title">Сертификаты</h2>
+    {% if certifications %}
+    <ul class="list-group list-group-flush" id="certifications">
+        {% for cert in certifications %}
+        <li class="list-group-item">
+            <strong>{{ cert.title }}</strong> - {{ cert.institution }} | {{ cert.date }}
+            {% if cert.link %}
+            <a href="{{ cert.link }}" target="_blank" class="ms-2"><i class="fas fa-link"></i> Посмотреть</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Нет данных о сертификатах.</p>
+    {% endif %}
+</div>

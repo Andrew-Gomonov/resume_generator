@@ -1,0 +1,48 @@
+<!-- templates/education.html -->
+<div class="section education mb-4" data-aos="fade-right">
+    <h2 class="section-title">Образование</h2>
+
+    {% if education|length > 1 %}
+    <!-- Обычная линия времени -->
+    <div class="timeline">
+        {% for edu in education %}
+        <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+            <div class="timeline-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="timeline-content">
+                <h3 class="timeline-title">{{ edu.degree }} — {{ edu.field }}</h3>
+                <div class="timeline-meta">
+                    <span class="date">{{ edu.start_date }} - {{ edu.end_date }}</span>
+                    {% if edu.location %}<span class="location"> • {{ edu.location }}</span>{% endif %}
+                </div>
+                <p class="institution">{{ edu.institution }}</p>
+                {% if edu.description %}
+                <p class="edu-description">{{ edu.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif education|length == 1 %}
+    <!-- Всего один пункт образования — упрощённый вариант -->
+    {% set edu = education[0] %}
+    <div class="single-timeline-item text-center p-4" data-aos="fade-up">
+        <div class="single-icon mb-3">
+            <i class="fas fa-graduation-cap fa-2x"></i>
+        </div>
+        <h3 class="timeline-title">{{ edu.degree }} — {{ edu.field }}</h3>
+        <div class="timeline-meta">
+            <span class="date">{{ edu.start_date }} - {{ edu.end_date }}</span>
+            {% if edu.location %}<span class="location"> • {{ edu.location }}</span>{% endif %}
+        </div>
+        <p class="institution">{{ edu.institution }}</p>
+        {% if edu.description %}
+        <p class="edu-description">{{ edu.description }}</p>
+        {% endif %}
+    </div>
+    {% else %}
+    <!-- Пусто -->
+    <p>Образование не указано.</p>
+    {% endif %}
+</div>

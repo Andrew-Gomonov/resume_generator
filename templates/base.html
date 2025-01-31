@@ -1,0 +1,45 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% include 'head.html' %}
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+    <div class="container" data-aos="fade-up">
+        {% include 'header.html' %}
+        {% include 'summary.html' %}
+        
+        <!-- BLOCKS START -->
+        {% if blocks %}
+        <div class="section blocks mb-4" data-aos="zoom-in-up">
+            <h2 class="section-title">Дополнительные блоки</h2>
+
+            {% for block in blocks %}
+                {% if block.type == 'header' %}
+                    <h3>{{ block.content }}</h3>
+                {% elif block.type == 'text' %}
+                    <p>{{ block.content }}</p>
+                {% elif block.type == 'image' %}
+                    <div class="block-image mb-3">
+                        <img src="{{ block.content }}" alt="Block image" class="img-fluid" />
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- BLOCKS END -->
+
+        {% include 'experience.html' %}
+        {% include 'education.html' %}
+        {% include 'skills.html' %}
+        {% include 'certifications.html' %}
+        {% include 'languages.html' %}
+        {% include 'projects.html' %}
+    </div>
+    
+    {% include 'footer.html' %}
+</body>
+</html>
+

@@ -1,0 +1,133 @@
+/* styles/styles.qss */
+
+/* Основной фон приложения */
+QWidget {
+    background-color: #2E3440;
+    color: #D8DEE9;
+    font-family: "Segoe UI", "Arial", sans-serif;
+    font-size: 10pt;
+}
+
+/* Заголовок */
+QLabel#titleLabel {
+    color: #81A1C1;
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+/* Кнопки */
+QPushButton {
+    background-color: #4C566A;
+    color: #D8DEE9;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #81A1C1;
+}
+
+QPushButton:pressed {
+    background-color: #5E81AC;
+}
+
+/* Поля ввода */
+QLineEdit, QTextEdit, QComboBox {
+    background-color: #434C5E;
+    color: #D8DEE9;
+    border: 1px solid #4C566A;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QLineEdit:focus, QTextEdit:focus, QComboBox:focus {
+    border: 1px solid #81A1C1;
+}
+
+/* Списки */
+QListWidget {
+    background-color: #434C5E;
+    color: #D8DEE9;
+    border: 1px solid #4C566A;
+    border-radius: 5px;
+}
+
+QListWidget::item:selected {
+    background-color: #81A1C1;
+    color: #2E3440;
+}
+
+/* Прогресс-бар */
+QProgressBar {
+    border: 1px solid #4C566A;
+    border-radius: 5px;
+    text-align: center;
+    color: #D8DEE9;
+}
+
+QProgressBar::chunk {
+    background-color: #81A1C1;
+    width: 20px;
+}
+
+/* Групповые блоки */
+QGroupBox {
+    border: 1px solid #4C566A;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 5px;
+    color: #D8DEE9;
+}
+
+/* Статусная строка */
+QStatusBar {
+    background-color: #3B4252;
+    color: #D8DEE9;
+    padding: 5px;
+}
+
+/* Интерактивные элементы */
+QPushButton#clearDataButton {
+    background-color: #BF616A;
+}
+
+QPushButton#clearDataButton:hover {
+    background-color: #D08770;
+}
+
+QPushButton#clearDataButton:pressed {
+    background-color: #EBCB8B;
+}
+
+/* Подсказки */
+QToolTip {
+    background-color: #434C5E;
+    color: #D8DEE9;
+    border: 1px solid #4C566A;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton#generateButton {
+    background-color: #4C566A;
+    color: #D8DEE9;
+    border: none;
+    padding: 10px 20px; /* Внутренние отступы */
+    border-radius: 5px;
+    /* transition: background-color 0.2s, transform 0.2s; */
+}
+
+QPushButton#generateButton:hover {
+    background-color: #81A1C1;
+    /* transform: scale(1.1); */ /* Удалите, если используете анимацию через QPropertyAnimation */
+}
+
+QPushButton#generateButton:pressed {
+    background-color: #5E81AC;
+}
